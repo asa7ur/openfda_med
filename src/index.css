@@ -1,0 +1,12 @@
+*,
+::after,
+::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(#42a5f5, #fff); 
+    height: 100vh;
+}
