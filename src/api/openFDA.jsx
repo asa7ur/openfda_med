@@ -4,14 +4,14 @@ const BASE_URL = 'https://api.fda.gov/drug/label.json'
 
 export const searchDrugs = async (query) => {
   let combinedResults = []
-  const searchLimit = 15 // Puedes ajustar el límite de resultados según sea necesario
+  const searchLimit = 10
 
   for (let i = 1; i <= query.length; i++) {
     const partialQuery = query.substring(0, i)
     try {
       const response = await axios.get(BASE_URL, {
         params: {
-          search: partialQuery, // Ajuste del parámetro de búsqueda
+          search: partialQuery,
           limit: searchLimit,
         },
       })
