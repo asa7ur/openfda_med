@@ -32,10 +32,9 @@ const Search = () => {
         <Box
           sx={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}
         >
-          
-        <Typography variant='h6' color='error' sx={{ marginTop: '2rem' }}>
-          No se ha podido encontrar ningún medicamento
-        </Typography>
+          <Typography variant='h6' color='error' sx={{ marginTop: '2rem' }}>
+            No se ha podido encontrar ningún medicamento
+          </Typography>
         </Box>
       )}
       {!selectedResult && results.length > 0 ? (
