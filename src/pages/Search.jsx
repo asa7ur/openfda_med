@@ -14,12 +14,20 @@ const Search = () => {
   const handleSearchComplete = () => {
     setSearching(false)
   }
+
+  const handleNewSearch = () => {
+    setSelectedResult(null)
+    setResults([])
+    setNotFound(false)
+  }
+
   return (
     <>
       <SearchBar
         setResults={setResults}
         onSearch={handleSearchComplete}
         setNotFound={setNotFound}
+        onNewSearch={handleNewSearch}
       />
       {!searching && results.length === 0 && !notFound && (
         <Box
@@ -50,4 +58,5 @@ const Search = () => {
     </>
   )
 }
+
 export default Search

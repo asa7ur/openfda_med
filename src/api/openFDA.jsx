@@ -28,7 +28,6 @@ export const searchDrugs = async (query) => {
     }
   }
 
-  // Filtrar resultados para incluir solo los más relevantes
   const filteredResults = combinedResults.filter(
     (result) =>
       result.openfda.brand_name &&
@@ -37,7 +36,6 @@ export const searchDrugs = async (query) => {
       )
   )
 
-  // Eliminar duplicados
   const uniqueResults = Array.from(
     new Set(filteredResults.map((result) => JSON.stringify(result)))
   ).map((result) => JSON.parse(result))
