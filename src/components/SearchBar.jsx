@@ -11,7 +11,7 @@ const SearchBar = ({ setResults }) => {
   }
 
   return (
-    <Box sx={{padding: '2rem 10rem'}} >
+    <Box sx={{paddingTop: '2rem'}} >
       <TextField
         label='Buscar medicamento'
         value={query}

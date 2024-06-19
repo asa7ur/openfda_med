@@ -1,8 +1,8 @@
 import { List, ListItem, ListItemText, Box, Paper } from '@mui/material'
 
-const ResultsList = ({ results }) => {
+const ResultsList = ({ results, setSelectedResult }) => {
   return (
-    <Box sx={{ padding: '0 10rem', background: 'transparent' }}>
+    <Box sx={{ background: 'transparent' }}>
       <List >
         {results.map((result, index) => {
           const brandName = result.openfda?.brand_name?.[0]

@@ -6,8 +6,8 @@ const HomePage = () => {
   return (
     <>
       <Stack
+      padding='10rem 0'
         direction='row'
-        padding='10rem'
         alignItems='center'
         justifyContent='space-around'
       >
