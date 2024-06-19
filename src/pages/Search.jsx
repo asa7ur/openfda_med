@@ -7,9 +7,13 @@ const Search = () => {
   const [results, setResults] = useState([])
   const [selectedResult, setSelectedResult] = useState(null)
 
+  const handleSearch = () => {
+    setSelectedResult(null)
+  }
+
   return (
     <>
-      <SearchBar setResults={setResults} />
+      <SearchBar setResults={setResults} onSearch={handleSearch} />
       {!selectedResult ? (
         <ResultsList results={results} setSelectedResult={setSelectedResult} />
       ) : (

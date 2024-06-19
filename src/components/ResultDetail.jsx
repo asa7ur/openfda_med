@@ -8,6 +8,7 @@ const ResultDetail = ({ result, setSelectedResult }) => {
   const genericName = result.openfda?.generic_name?.[0]
   const manufacturerName = result.openfda?.manufacturer_name?.[0]
   const route = result.openfda?.route?.[0]
+  const pharmClass = result.openfda?.pharm_class_epc?.[0]
   const description = String(result.description)
 
   if (!brandName || !genericName || !manufacturerName) {
@@ -37,6 +38,9 @@ const ResultDetail = ({ result, setSelectedResult }) => {
         </Typography>
         <Typography variant='body1'>
           <strong>Fabricante:</strong> {manufacturerName}
+        </Typography>
+        <Typography variant='body1'>
+          <strong>Clase de medicaménto:</strong> {pharmClass}
         </Typography>
         <Typography variant='body1'>
           <strong>Forma de administración:</strong> {route}
