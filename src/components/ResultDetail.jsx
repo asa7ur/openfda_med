@@ -30,7 +30,7 @@ const ResultDetail = ({ result, setSelectedResult }) => {
         Atrás
       </Button>
       <Paper sx={{ padding: '1rem', margin: '1rem 0rem' }}>
-        <Typography variant='h5' component='h2' gutterBottom>
+        <Typography variant='h4' component='h2' gutterBottom>
           {brandName}
         </Typography>
         <Typography variant='body1'>
