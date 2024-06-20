@@ -37,13 +37,34 @@ export const searchDrugs = async (query) => {
     )
   })
 
-  console.log(filteredResults)
+  const sortedResults = filteredResults.sort((a, b) => {
+    const aNames = [
+      ...(a.openfda.brand_name || []),
+      ...(a.openfda.generic_name || []),
+    ]
+    const bNames = [
+      ...(b.openfda.brand_name || []),
+      ...(b.openfda.generic_name || []),
+    ]
+    const aStartsWithQuery = aNames.some((name) =>
+      name.toLowerCase().startsWith(query.toLowerCase())
+    )
+    const bStartsWithQuery = bNames.some((name) =>
+      name.toLowerCase().startsWith(query.toLowerCase())
+    )
+
+    if (aStartsWithQuery && !bStartsWithQuery) {
+      return -1
+    }
+    if (!aStartsWithQuery && bStartsWithQuery) {
+      return 1
+    }
+    return 0
+  })
 
   const uniqueResults = Array.from(
-    new Set(filteredResults.map((result) => JSON.stringify(result)))
-  )
-    .map((result) => JSON.parse(result))
-    .slice(0, 10)
+    new Set(sortedResults.map((result) => JSON.stringify(result)))
+  ).map((result) => JSON.parse(result))
 
   return uniqueResults
 }
