@@ -5,7 +5,7 @@ import ResultsList from '../components/ResultsList'
 import ResultDetail from '../components/ResultDetail'
 import image from '../assets/medicine.svg'
 
-const Search = () => {
+const Product = () => {
   const [results, setResults] = useState([])
   const [selectedResult, setSelectedResult] = useState(null)
   const [searching, setSearching] = useState(false)
@@ -59,4 +59,4 @@ const Search = () => {
   )
 }
 
-export default Search
+export default Product

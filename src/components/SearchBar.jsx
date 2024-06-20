@@ -1,11 +1,7 @@
 import { useState } from 'react'
-import {
-  TextField,
-  Button,
-  Box,
-  CircularProgress,
-  Typography,
-} from '@mui/material'
+import { TextField, Box } from '@mui/material'
+import { LoadingButton } from '@mui/lab'
+import { Search } from '@mui/icons-material'
 import { searchDrugs } from '../api/openFDA'
 
 const SearchBar = ({ setResults, onSearch, setNotFound, onNewSearch }) => {
@@ -46,24 +42,17 @@ const SearchBar = ({ setResults, onSearch, setNotFound, onNewSearch }) => {
         margin='normal'
         sx={{ marginRight: '1rem' }}
       />
-      <Button variant='contained' color='primary' onClick={handleSearch}>
+      <LoadingButton
+        variant='contained'
+        loading={loading}
+        loadingPosition='start'
+        startIcon={<Search />}
+        color='primary'
+        size='large'
+        onClick={handleSearch}
+      >
         Buscar
-      </Button>
-      {loading && (
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            marginTop: '1rem',
-          }}
-        >
-          <CircularProgress />
-          <Typography variant='body1' sx={{ marginTop: '1rem' }}>
-            Buscando...
-          </Typography>
-        </Box>
-      )}
+      </LoadingButton>
     </Box>
   )
 }
