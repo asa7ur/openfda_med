@@ -36,7 +36,7 @@ const SearchBar = ({ setResults, onSearch, setNotFound, onNewSearch }) => {
   }
 
   return (
-    <Box sx={{ paddingTop: '2rem' }}>
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <TextField
         label='Buscar medicamento'
         value={query}
@@ -44,6 +44,7 @@ const SearchBar = ({ setResults, onSearch, setNotFound, onNewSearch }) => {
         fullWidth
         variant='filled'
         margin='normal'
+        sx={{ marginRight: '1rem' }}
       />
       <Button variant='contained' color='primary' onClick={handleSearch}>
         Buscar
