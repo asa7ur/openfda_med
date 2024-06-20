@@ -4,7 +4,7 @@ const BASE_URL = 'https://api.fda.gov/drug/label.json'
 
 export const searchDrugs = async (query) => {
   let combinedResults = []
-  const searchLimit = 10
+  const searchLimit = 50
 
   for (let i = 1; i <= query.length; i++) {
     const partialQuery = query.substring(0, i)
@@ -28,19 +28,22 @@ export const searchDrugs = async (query) => {
     }
   }
 
-  const filteredResults = combinedResults.filter(
-    (result) =>
-      result.openfda.brand_name &&
-      result.openfda.brand_name.some((name) =>
-        name.toLowerCase().includes(query.toLowerCase())
-      )
-  )
+  const filteredResults = combinedResults.filter((result) => {
+    const brandNames = result.openfda.brand_name || []
+    const genericNames = result.openfda.generic_name || []
+    const allNames = [...brandNames, ...genericNames]
+    return allNames.some((name) =>
+      name.toLowerCase().includes(query.toLowerCase())
+    )
+  })
+
+  console.log(filteredResults)
 
   const uniqueResults = Array.from(
     new Set(filteredResults.map((result) => JSON.stringify(result)))
-  ).map((result) => JSON.parse(result))
+  )
+    .map((result) => JSON.parse(result))
+    .slice(0, 10)
 
-  const limitedResults = uniqueResults.slice(0, 5)
-
-  return limitedResults
+  return uniqueResults
 }
