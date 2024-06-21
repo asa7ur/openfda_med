@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Producto from './pages/Product'
 
@@ -7,9 +7,10 @@ const App = () => {
     <Router>
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/producto' element={<Producto />} />
+        <Route path='/producto/:id' element={<Producto />} />
       </Routes>
     </Router>
   )
 }
+
 export default App

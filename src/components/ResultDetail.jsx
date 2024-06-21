@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { Button, Box, Typography, Paper } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
-const ResultDetail = ({ result, setSelectedResult }) => {
+const ResultDetail = ({ result }) => {
   const [showFullDescription, setShowFullDescription] = useState(false)
+  const navigate = useNavigate()
 
   const brandName = result.openfda?.brand_name?.[0]
   const genericName = result.openfda?.generic_name?.[0]
@@ -26,7 +28,7 @@ const ResultDetail = ({ result, setSelectedResult }) => {
 
   return (
     <Box sx={{ padding: '1rem 0rem', background: 'transparent' }}>
-      <Button variant='contained' onClick={() => setSelectedResult(null)}>
+      <Button variant='contained' onClick={() => navigate(-1)}>
         Atrás
       </Button>
       <Paper sx={{ padding: '1rem', margin: '1rem 0rem' }}>

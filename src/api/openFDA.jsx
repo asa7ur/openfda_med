@@ -63,8 +63,10 @@ export const searchDrugs = async (query) => {
   })
 
   const uniqueResults = Array.from(
-    new Set(sortedResults.map((result) => JSON.stringify(result)))
-  ).map((result) => JSON.parse(result))
+    new Set(sortedResults.map((result) => result.id))
+  ).map((id) => {
+    return sortedResults.find((result) => result.id === id)
+  })
 
   return uniqueResults
 }

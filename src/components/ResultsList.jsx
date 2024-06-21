@@ -1,10 +1,13 @@
-import { List, ListItem, ListItemText} from '@mui/material'
+import { List, ListItem, ListItemText } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
-const ResultsList = ({ results, setSelectedResult }) => {
+const ResultsList = ({ results }) => {
+  const navigate = useNavigate()
+
   return (
     <>
       <List>
-        {results.map((result, index) => {
+        {results.map((result) => {
           const brandName = result.openfda?.brand_name?.[0]
           const genericName = result.openfda?.generic_name?.[0]
 
@@ -13,7 +16,13 @@ const ResultsList = ({ results, setSelectedResult }) => {
           }
 
           return (
-            <ListItem button key={index} onClick={() => setSelectedResult(result)}>
+            <ListItem
+              button
+              key={result.id}
+              onClick={() =>
+                navigate(`/producto/${result.id}`, { state: { result } })
+              }
+            >
               <ListItemText primary={brandName} secondary={genericName} />
             </ListItem>
           )

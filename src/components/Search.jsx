@@ -5,7 +5,6 @@ import ResultsList from '../components/ResultsList'
 
 const Search = () => {
   const [results, setResults] = useState([])
-  const [selectedResult, setSelectedResult] = useState(null)
   const [searching, setSearching] = useState(false)
   const [notFound, setNotFound] = useState(false)
   const [showResults, setShowResults] = useState(false)
@@ -31,7 +30,6 @@ const Search = () => {
   }
 
   const handleNewSearch = () => {
-    setSelectedResult(null)
     setResults([])
     setNotFound(false)
     setShowResults(false)
@@ -76,7 +74,6 @@ const Search = () => {
         {!searching && !notFound && results.length > 0 && (
           <ResultsList
             results={results}
-            setSelectedResult={setSelectedResult}
           />
         )}
       </Box>
