@@ -45,9 +45,9 @@ const Home = () => {
             <div>
               <Typography
                 variant='h1'
-                sx={{ fontSize: { xs: '2rem', md: '3rem' } }}
+                sx={{ fontSize: { xs: '2rem', md: '4rem' } }}
               >
-                Buscador
+                Buscador <strong>openFDA</strong>
               </Typography>
               <Typography
                 variant='h5'
