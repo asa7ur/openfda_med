@@ -31,7 +31,7 @@ const Home = () => {
         padding={{ xs: '5rem 0', md: '10rem 0' }}
         direction={{ xs: 'column', md: 'row' }}
         alignItems='center'
-        justifyContent='center'
+        justifyContent={{ xs: 'center', md: 'space-between' }}
         spacing={4}
       >
         <Box
@@ -62,22 +62,22 @@ const Home = () => {
               <Search />
             </div>
           </Fade>
+          {isSmallScreen && (
+            <Fade in={showSearch} timeout={1000}>
+              <Box mt={4}>
+                <img src={image} alt='Doctors' width='300px' />
+              </Box>
+            </Fade>
+          )}
         </Box>
-        {isSmallScreen && (
+        {!isSmallScreen && (
           <Box>
             <Fade in={showText} timeout={1000}>
-              <img src={image} alt='Doctors' width='300px' />
+              <img src={image} alt='Doctors' width='400px' />
             </Fade>
           </Box>
         )}
       </Stack>
-      {!isSmallScreen && (
-        <Stack justifyContent='center' alignItems='center' marginTop='2rem'>
-          <Fade in={showText} timeout={1000}>
-            <img src={image} alt='Doctors' width='400px' />
-          </Fade>
-        </Stack>
-      )}
     </>
   )
 }

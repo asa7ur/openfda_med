@@ -1,10 +1,19 @@
 import React, { useState } from 'react'
-import { Button, Box, Typography, Paper } from '@mui/material'
+import {
+  Button,
+  Box,
+  Typography,
+  Paper,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
 const ResultDetail = ({ result }) => {
   const [showFullText, setShowFullText] = useState(false)
   const navigate = useNavigate()
+  const theme = useTheme()
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
 
   const brandName = result.openfda.brand_name || []
   const genericName = result.openfda.generic_name || []
@@ -24,21 +33,24 @@ const ResultDetail = ({ result }) => {
     )
   }
 
-  const truncatedText = (text, length = 500) => {
+  const truncatedText = (text, length = 200) => {
     return text && text.length > length ? `${text.slice(0, length)}...` : text
   }
 
   const renderTextArray = (label, textArray) => {
     return textArray.map((text, index) => (
       <React.Fragment key={index}>
-        <Typography variant='body1'>
-          <strong>{label}:</strong>{' '}
-          {showFullText ? text : truncatedText(text)}
+        <Typography
+          variant='body1'
+          sx={{ fontSize: isSmallScreen ? '0.9rem' : 'inherit' }}
+        >
+          <strong>{label}:</strong> {showFullText ? text : truncatedText(text)}
         </Typography>
-        {text.length > 500 && (
+        {text.length > 200 && (
           <Button
             variant='text'
             onClick={() => setShowFullText(!showFullText)}
+            sx={{ fontSize: '0.8rem' }}
           >
             {showFullText ? 'Ver menos' : 'Ver más'}
           </Button>
@@ -53,7 +65,11 @@ const ResultDetail = ({ result }) => {
         Atrás
       </Button>
       <Paper sx={{ padding: '1rem', margin: '1rem 0rem' }}>
-        <Typography variant='h4' component='h2' gutterBottom>
+        <Typography
+          variant={isSmallScreen ? 'h5' : 'h4'}
+          component='h2'
+          gutterBottom
+        >
           {brandName}
         </Typography>
         <Typography variant='body1'>
@@ -63,7 +79,7 @@ const ResultDetail = ({ result }) => {
           <strong>Fabricante:</strong> {manufacturerName}
         </Typography>
         <Typography variant='body1'>
-          <strong>Clase de medicaménto:</strong> {pharmClass}
+          <strong>Clase de medicamento:</strong> {pharmClass}
         </Typography>
         <Typography variant='body1'>
           <strong>Forma de administración:</strong> {route}
