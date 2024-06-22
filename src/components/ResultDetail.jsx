@@ -3,15 +3,18 @@ import { Button, Box, Typography, Paper } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
 const ResultDetail = ({ result }) => {
-  const [showFullDescription, setShowFullDescription] = useState(false)
+  const [showFullText, setShowFullText] = useState(false)
   const navigate = useNavigate()
 
-  const brandName = result.openfda?.brand_name?.[0]
-  const genericName = result.openfda?.generic_name?.[0]
-  const manufacturerName = result.openfda?.manufacturer_name?.[0]
-  const route = result.openfda?.route?.[0]
-  const pharmClass = result.openfda?.pharm_class_epc?.[0]
-  const description = String(result.description)
+  const brandName = result.openfda.brand_name || []
+  const genericName = result.openfda.generic_name || []
+  const manufacturerName = result.openfda.manufacturer_name || []
+  const route = result.openfda.route || []
+  const dosage = result.dosage_and_administration || []
+  const pharmClass = result.openfda?.pharm_class_epc || []
+  const purpose = result.purpose || []
+  const warnings = result.warnings || []
+  const description = result.description || []
 
   if (!brandName || !genericName || !manufacturerName) {
     return (
@@ -21,10 +24,28 @@ const ResultDetail = ({ result }) => {
     )
   }
 
-  const truncatedDescription =
-    description && description.length > 500
-      ? `${description.slice(0, 500)}...`
-      : description
+  const truncatedText = (text, length = 500) => {
+    return text && text.length > length ? `${text.slice(0, length)}...` : text
+  }
+
+  const renderTextArray = (label, textArray) => {
+    return textArray.map((text, index) => (
+      <React.Fragment key={index}>
+        <Typography variant='body1'>
+          <strong>{label}:</strong>{' '}
+          {showFullText ? text : truncatedText(text)}
+        </Typography>
+        {text.length > 500 && (
+          <Button
+            variant='text'
+            onClick={() => setShowFullText(!showFullText)}
+          >
+            {showFullText ? 'Ver menos' : 'Ver más'}
+          </Button>
+        )}
+      </React.Fragment>
+    ))
+  }
 
   return (
     <Box sx={{ padding: '1rem 0rem', background: 'transparent' }}>
@@ -47,22 +68,10 @@ const ResultDetail = ({ result }) => {
         <Typography variant='body1'>
           <strong>Forma de administración:</strong> {route}
         </Typography>
-        {description && (
-          <>
-            <Typography variant='body1'>
-              <strong>Descripción:</strong>{' '}
-              {showFullDescription ? description : truncatedDescription}
-            </Typography>
-            {description.length > 200 && (
-              <Button
-                variant='text'
-                onClick={() => setShowFullDescription(!showFullDescription)}
-              >
-                {showFullDescription ? 'Ver menos' : 'Ver más'}
-              </Button>
-            )}
-          </>
-        )}
+        {renderTextArray('Dosificación', dosage)}
+        {renderTextArray('Propósito', purpose)}
+        {renderTextArray('Advertencias', warnings)}
+        {renderTextArray('Descripción', description)}
       </Paper>
     </Box>
   )
