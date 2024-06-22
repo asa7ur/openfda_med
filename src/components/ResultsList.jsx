@@ -1,7 +1,7 @@
-import { List, ListItem, ListItemText } from '@mui/material'
+import { List, ListItemButton, ListItemText } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
-const ResultsList = ({ results }) => {
+const ResultsList = ({ results, onResultClick }) => {
   const navigate = useNavigate()
 
   return (
@@ -16,15 +16,15 @@ const ResultsList = ({ results }) => {
           }
 
           return (
-            <ListItem
-              button
+            <ListItemButton
               key={result.id}
-              onClick={() =>
-                navigate(`/producto/${result.id}`, { state: { result } })
-              }
+              onClick={() => {
+                onResultClick(),
+                  navigate(`/producto/${result.id}`, { state: { result } })
+              }}
             >
               <ListItemText primary={brandName} secondary={genericName} />
-            </ListItem>
+            </ListItemButton>
           )
         })}
       </List>

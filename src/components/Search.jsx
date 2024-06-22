@@ -74,6 +74,7 @@ const Search = () => {
         {!searching && !notFound && results.length > 0 && (
           <ResultsList
             results={results}
+            onResultClick={() => setShowResults(false)}
           />
         )}
       </Box>
