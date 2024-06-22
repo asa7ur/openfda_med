@@ -31,12 +31,19 @@ const SearchBar = ({ setResults, onSearch, setNotFound, onNewSearch }) => {
     }
   }
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      handleSearch()
+    }
+  }
+
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <TextField
         label='Buscar medicamento'
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={handleKeyDown} 
         fullWidth
         variant='filled'
         margin='normal'
@@ -48,10 +55,10 @@ const SearchBar = ({ setResults, onSearch, setNotFound, onNewSearch }) => {
                 loading={loading}
                 onClick={handleSearch}
                 sx={{
-                  borderRadius: '50%', // Make the button round
-                  minWidth: '40px', // Ensure it has a minimum width
-                  minHeight: '40px', // Ensure it has a minimum height
-                  padding: '8px', // Add some padding
+                  borderRadius: '50%', 
+                  minWidth: '40px',
+                  minHeight: '40px', 
+                  padding: '8px', 
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
