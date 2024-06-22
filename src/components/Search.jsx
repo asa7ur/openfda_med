@@ -46,16 +46,17 @@ const Search = () => {
       <Box
         ref={boxRef}
         sx={{
+          backgroundColor: 'white',
           position: 'absolute',
           width: '100%',
           maxHeight: '220px',
           borderRadius: '0px 0px 5px 5px',
           overflow: 'auto',
-          opacity: showResults ? 1 : 0,
-          transition: 'opacity 0.3s ease-in-out',
-          backgroundColor: 'white',
           visibility: showResults ? 'visible' : 'hidden',
-          zIndex: 10,
+          opacity: showResults ? 1 : 0,
+          boxShadow: showResults ? '0px 4px 10px rgba(0, 0, 0, 0.2)' : 'none',
+          transition: 'opacity 0.3s ease-in-out',
+          zIndex: 99,
         }}
       >
         {!searching && notFound && (

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { TextField, Box } from '@mui/material'
+import { TextField, InputAdornment, Box } from '@mui/material'
 import { LoadingButton } from '@mui/lab'
 import { Search } from '@mui/icons-material'
 import { searchDrugs } from '../api/openFDA'
@@ -40,19 +40,29 @@ const SearchBar = ({ setResults, onSearch, setNotFound, onNewSearch }) => {
         fullWidth
         variant='filled'
         margin='normal'
-        sx={{ marginRight: '1rem' }}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position='end'>
+              <LoadingButton
+                variant='contained'
+                loading={loading}
+                onClick={handleSearch}
+                sx={{
+                  borderRadius: '50%', // Make the button round
+                  minWidth: '40px', // Ensure it has a minimum width
+                  minHeight: '40px', // Ensure it has a minimum height
+                  padding: '8px', // Add some padding
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                {loading ? null : <Search />}{' '}
+              </LoadingButton>
+            </InputAdornment>
+          ),
+        }}
       />
-      <LoadingButton
-        variant='contained'
-        loading={loading}
-        loadingPosition='start'
-        startIcon={<Search />}
-        color='primary'
-        size='large'
-        onClick={handleSearch}
-      >
-        Buscar
-      </LoadingButton>
     </Box>
   )
 }
