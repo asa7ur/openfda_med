@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { TextField, InputAdornment, Box } from '@mui/material'
+import { TextField, InputAdornment, Box, Snackbar, Alert } from '@mui/material'
 import { LoadingButton } from '@mui/lab'
 import { Search } from '@mui/icons-material'
 import { searchDrugs } from '../api/openFDA'
@@ -7,8 +7,14 @@ import { searchDrugs } from '../api/openFDA'
 const SearchBar = ({ setResults, onSearch, setNotFound, onNewSearch }) => {
   const [query, setQuery] = useState('')
   const [loading, setLoading] = useState(false)
+  const [openSnackbar, setOpenSnackbar] = useState(false)
 
   const handleSearch = async () => {
+    if (!query.trim()) {
+      setOpenSnackbar(true)
+      return
+    }
+
     setLoading(true)
     onNewSearch()
     try {
@@ -37,13 +43,17 @@ const SearchBar = ({ setResults, onSearch, setNotFound, onNewSearch }) => {
     }
   }
 
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false)
+  }
+
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <TextField
         label='Buscar medicamento'
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        onKeyDown={handleKeyDown} 
+        onKeyDown={handleKeyDown}
         fullWidth
         variant='filled'
         margin='normal'
@@ -55,10 +65,10 @@ const SearchBar = ({ setResults, onSearch, setNotFound, onNewSearch }) => {
                 loading={loading}
                 onClick={handleSearch}
                 sx={{
-                  borderRadius: '50%', 
+                  borderRadius: '50%',
                   minWidth: '40px',
-                  minHeight: '40px', 
-                  padding: '8px', 
+                  minHeight: '40px',
+                  padding: '8px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -70,6 +80,19 @@ const SearchBar = ({ setResults, onSearch, setNotFound, onNewSearch }) => {
           ),
         }}
       />
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity='warning'
+          sx={{ width: '100%' }}
+        >
+          Por favor, ingrese un nombre de medicamento.
+        </Alert>
+      </Snackbar>
     </Box>
   )
 }
