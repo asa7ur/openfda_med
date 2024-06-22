@@ -6,6 +6,16 @@ export const searchDrugs = async (query) => {
   let combinedResults = []
   const searchLimit = 50
 
+  // Con la búsqueda directa los resultados son menos precisos aunque el tiempo de espera es mucho menos
+  //
+  // const response = await axios.get(BASE_URL, {
+  //   params: {
+  //     search: query,
+  //     limit: SEARCH_LIMIT,
+  //   },
+  // })
+
+  // Con este método aunque el timepo de espera sea mayor, los resultados son mejores
   for (let i = 1; i <= query.length; i++) {
     const partialQuery = query.substring(0, i)
     try {
