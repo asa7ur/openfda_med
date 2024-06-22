@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom'
 import ResultDetail from '../components/ResultDetail'
-import SearchBar from '../components/SearchBar'
+import Search from '../components/Search'
 
 const Product = () => {
   const location = useLocation()
@@ -8,7 +8,7 @@ const Product = () => {
 
   return (
     <div>
-      <SearchBar/>
+      <Search/>
       {result ? (
         <ResultDetail result={result}/>
       ) : (

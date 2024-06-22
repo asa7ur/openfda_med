@@ -47,8 +47,8 @@ const Search = () => {
         ref={boxRef}
         sx={{
           position: 'absolute',
-          width: '472.25px',
-          maxHeight: '200px',
+          width: '100%',
+          maxHeight: '220px',
           borderRadius: '0px 0px 5px 5px',
           overflow: 'auto',
           opacity: showResults ? 1 : 0,
