@@ -10,7 +10,7 @@ import {
 import { useNavigate } from 'react-router-dom'
 
 const ResultDetail = ({ result }) => {
-  const [showFullText, setShowFullText] = useState(false)
+  const [expandedSections, setExpandedSections] = useState({})
   const navigate = useNavigate()
   const theme = useTheme()
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
@@ -25,34 +25,38 @@ const ResultDetail = ({ result }) => {
   const warnings = result.warnings || []
   const description = result.description || []
 
-  if (!brandName || !genericName || !manufacturerName) {
-    return (
-      <Typography variant='body1'>
-        Información insuficiente para mostrar detalles del medicamento.
-      </Typography>
-    )
-  }
-
   const truncatedText = (text, length = 200) => {
     return text && text.length > length ? `${text.slice(0, length)}...` : text
   }
 
-  const renderTextArray = (label, textArray) => {
+  const toggleExpansion = (index) => {
+    setExpandedSections((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }))
+  }
+
+  const renderTextArray = (label, textArray, sectionKey) => {
     return textArray.map((text, index) => (
       <React.Fragment key={index}>
         <Typography
           variant='body1'
           sx={{ fontSize: isSmallScreen ? '0.9rem' : 'inherit' }}
         >
-          <strong>{label}:</strong> {showFullText ? text : truncatedText(text)}
+          <strong>{label}:</strong>{' '}
+          {expandedSections[`${sectionKey}-${index}`]
+            ? text
+            : truncatedText(text)}
         </Typography>
         {text.length > 200 && (
           <Button
             variant='text'
-            onClick={() => setShowFullText(!showFullText)}
+            onClick={() => toggleExpansion(`${sectionKey}-${index}`)}
             sx={{ fontSize: '0.8rem' }}
           >
-            {showFullText ? 'Ver menos' : 'Ver más'}
+            {expandedSections[`${sectionKey}-${index}`]
+              ? 'Ver menos'
+              : 'Ver más'}
           </Button>
         )}
       </React.Fragment>
@@ -84,10 +88,10 @@ const ResultDetail = ({ result }) => {
         <Typography variant='body1'>
           <strong>Forma de administración:</strong> {route}
         </Typography>
-        {renderTextArray('Dosificación', dosage)}
-        {renderTextArray('Propósito', purpose)}
-        {renderTextArray('Advertencias', warnings)}
-        {renderTextArray('Descripción', description)}
+        {renderTextArray('Dosificación', dosage, 'dosage')}
+        {renderTextArray('Propósito', purpose, 'purpose')}
+        {renderTextArray('Advertencias', warnings, 'warnings')}
+        {renderTextArray('Descripción', description, 'description')}
       </Paper>
     </Box>
   )
